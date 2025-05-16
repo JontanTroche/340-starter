@@ -1,9 +1,9 @@
+--ALTER TYPE public.account_type
+--    OWNER TO cse340_87tp_user;
+
+DROP TYPE IF EXISTS public.account_type;
 CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
-
-ALTER TYPE public.account_type
-    OWNER TO cse340_87tp_user;
-
 
 -- Table structure for table 'clasification'
 CREATE TABLE public.classification (
