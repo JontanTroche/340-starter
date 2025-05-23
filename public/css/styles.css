@@ -16,7 +16,7 @@ html {
 body {
   border: 6px solid #63a2da;
   background-color: #fefefe;
-  margin: 40px 100px;
+  margin: 40px 120px;
   padding: 20px;
   border-radius: 5px;
 }
@@ -63,15 +63,17 @@ nav ul {
   
 }
 
-nav li {
+nav li a {
   display: inline;
   text-decoration: none;
   color: #fafafa;
   font-size: 1.3em;
   padding: 5px 15px;
+  font-weight: bold;
 }
-nav li:hover {
-  color: #a4badb;  
+nav li a:hover {
+  color: black;
+  background-color: #fafafa;  
 }
 
 /*-----main-----*/
@@ -141,6 +143,62 @@ h1 {
   margin: 20px 0;
 }
 
+/*-------------------------------- Inv Display View ------------------------*/
+/*------ cards -----------*/
+#inv-display {
+  list-style: none;
+  padding-left: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  justify-content: center;
+}
+
+#inv-display li {
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  border: 1px solid #2e333b;
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+#inv-display img {
+  width: 100%;
+  height: 190px;
+  object-fit: contain;
+  object-position: top;
+  border-radius: 15px 15px 0 0;
+}
+
+.namePrice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+}
+#inv-display li hr {
+  width: 100%;
+  height: 5px;
+  background-color: black;
+  border: none;
+  margin: 16px 0;
+}
+
+#inv-display li h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+#inv-display li span {
+  font-size: 1.1rem;
+  margin: 10px 0;
+}
+
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
   
@@ -154,8 +212,8 @@ h1 {
   }
 
   /*-----nav------*/
-  nav ul li {
-    font-size: 15px;
+  nav li a {
+    font-size: 12px;
   }
 
   /*-----main screen-----*/
@@ -194,4 +252,11 @@ h1 {
   footer p {
     margin-left: 10px;
   }
+
+  /*-------------------------------- Inv Display View ------------------------*/
+  #inv-display {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+  }
+
 }
