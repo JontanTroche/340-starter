@@ -1,0 +1,12 @@
+<%# Heading %>
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else { %>
+  <%- include('../errors/errors') %>
+<% } %>
+
+<%# Message block %>
+<%# messages() %>
+
+<%# Vehicle Details() %>
+<%- detailDisplay %>

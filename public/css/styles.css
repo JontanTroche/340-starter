@@ -199,6 +199,22 @@ h1 {
   margin: 10px 0;
 }
 
+/*--------------------------------- Vehicle detail ----------------------------*/
+#vehicle-detail {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+#vehicle-detail {
+  width: 100%;
+}
+
+
+/*------------------------------- Error 500 view ----------------------------*/
+.error-background {
+  
+}
+
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
   
@@ -258,5 +274,10 @@ h1 {
     grid-template-columns: 1fr;
     max-width: 280px;
   }
+
+  /*--------------------------------- Vehicle detail ----------------------------*/
+#vehicle-detail {
+  grid-template-columns: 1fr;
+}
 
 }

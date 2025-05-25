@@ -1,10 +1,14 @@
-<%# Heading %>
 <% if (title) { %>
 <h1><%= title %></h1>
-<% } else {
-  res.redirect('/')
-} %>
+<% } %>
+
+<div class="error-message" style="
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  text-align: center;"
+></div>
+  <%- message %>
 
 
-<%# Message %>
-<%- message %>
+<div class="error-background" style="background-image: url('/images/error-bg.jpg'); background-size: contain; background-position: center; min-height: 80vh; width: 100%; display: flex; justify-content: center; align-items: center; text-align: center;"></div>

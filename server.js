@@ -14,6 +14,7 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities");
 
+
 /* ***********************
  * View Engine and Templates
  *************************/
@@ -32,6 +33,11 @@ app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
 app.use("/inv", inventoryRoute)
+// Error 500 route
+app.get("/error/500", async (req, res, next) => {
+  next({ status: 500, message: "Oh no! There was a crash. Maybe try a different route?", title: "Server Error"});
+});
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
@@ -45,7 +51,7 @@ app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   res.render("errors/errors", {
-    title: err.status || 'Server Error',
+    title: err.title || err.status || 'Server Error',
     message: err.message,
     nav
   })
