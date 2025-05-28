@@ -77,6 +77,12 @@ nav li a:hover {
 }
 
 /*-----main-----*/
+.notice {
+  color: red;
+  font-weight: bold;
+  font-style: italic;
+}
+
 h1 {
   color: #2e333b;
   margin: 40px 0;
