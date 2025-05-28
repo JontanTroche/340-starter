@@ -30,7 +30,10 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(static)
 
 //Index route
-app.get("/", utilities.handleErrors(baseController.buildHome))
+//app.get("/", utilities.handleErrors(baseController.buildHome))
+app.get("/", (req, res) => {
+  res.send("¡Hola, mundo! Esto es una prueba desde Render.");
+});
 // Inventory routes
 app.use("/inv", inventoryRoute)
 // Error 500 route
