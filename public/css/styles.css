@@ -12,6 +12,10 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+main {
+  width: 100%;
+}
+
 /*-----border-----*/
 body {
   border: 6px solid #63a2da;
@@ -215,8 +219,66 @@ h1 {
   width: 100%;
 }
 
+/*--------------------------------- form view ----------------------------*/
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+.form {
+  max-width: 700px;
+  background-color: #32475c;
+  margin: 20px auto;
+  padding: 40px 60px;
+  border-radius: 15px;
+  margin: 3px solid #2e333b;
+}
+
+label {
+  font-weight: bold;
+  color: #fefefe;
+  font-size: 20px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.form button {
+  padding: 10px;
+  border-radius: 10px;
+  width: 150px;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px auto;
+}
+.form button:hover {
+  background-color: #63a2da;
+  color: #fefefe;
+  margin: 1px solid #fefefe;
+}
+
+.form p {
+  color: #fefefe;
+  font-size: 30px;
+  margin: 20px 0 0 0;
+}
+
+.form a {
+  color: #fefefe;
+}
+.form a:hover {
+  color: #63a2da;
+}
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
+
+body {
+  height: 100%;
+}
   
   /*-----header------*/
   #top-header {
@@ -276,8 +338,12 @@ h1 {
   }
 
   /*--------------------------------- Vehicle detail ----------------------------*/
-#vehicle-detail {
-  grid-template-columns: 1fr;
-}
+  #vehicle-detail {
+    grid-template-columns: 1fr;
+  }
 
+  /*--------------------------------- Vehicle detail ----------------------------*/
+  .form p {
+    font-size: 20px;
+  }
 }
