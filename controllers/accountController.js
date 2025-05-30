@@ -9,6 +9,7 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
+    errors: null,
   })
 }
 
@@ -82,4 +83,27 @@ async function registerAccount(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount }
+
+async function loginAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_email, account_password } = req.body;
+
+  // Simulación de autenticación (deberías reemplazar esto con lógica real)
+  const accountData = await accountModel.getAccountByEmail(account_email);
+  if (accountData && accountData.account_password === account_password) {
+    req.flash("notice", "Login successful.");
+    res.status(200).render("account/login", {
+      title: "Login",
+      nav,
+    });
+  } else {
+    req.flash("notice", "Invalid email or password.");
+    res.status(401).render("account/login", {
+      title: "Login",
+      nav,
+      errors: ["Invalid email or password."]
+    });
+  }
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, loginAccount }

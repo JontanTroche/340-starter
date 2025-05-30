@@ -2,23 +2,50 @@
     <h1><%= title %></h1>
 
     <%# Flash Message %>
-    <% if (messages && messages.length > 0) { %>
-        <div class="Flash-messages">
-            <%- messages %>
-        </div>    
-    <% } %>    
+    <% if (messages && Object.keys(messages).length > 0) { %>
+        <div class="flash-messages">
+            <% Object.keys(messages).forEach(type => { %>
+                <% messages[type].forEach(msg => { %>
+                    <p class="<%= type %>"><%= msg %></p>
+                <% }); %>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <%# Flash Error Message %>
+    <% if (errors && errors.length > 0) { %>
+        <div class="flash-messages">
+            <% errors.forEach(error => { %>
+                <p class="error"><%= error %></p>
+            <% }); %>
+        </div>
+    <% } %>
 
     <div class="form">
+        <p>All the fields are required.</p>
     <%# Login Form %>
-        <form id="loginForm" action="/account/login" method="POST">
+        <form id="loginForm" action="/account/login" method="post">
             <label for="account_email">Email Address: </label>
-            <input type="email" id="account_email" name="account_email" placeholder="Enter your Email" required>
+            <input type="email" id="account_email" name="account_email" placeholder="Enter your Email" required value="<%= locals.account_email %>">
+            
             <label for="account_password">Password: </label>
-            <input type="password" id="account_password" name="account_password" placeholder="Enter your password" required>
-            <button type="submot">Login</button>
+            <input type="password" id="account_password" name="account_password" placeholder="Enter your password" required
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+            <div><i>Password must be: 12 characters minimum, 1 capital letter, 1 number, 1 special character.</i></div>
+            <button type="button" id="togglePassword">Show Password</button>
+            <button type="submit">Login</button>
         </form>
 
         <%# Registration link %>
         <p>No account? <a href="/account/register">Sign-up</a></p>
     </div>
 </main>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('account_password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
+    });
+</script>

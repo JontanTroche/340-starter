@@ -219,7 +219,7 @@ h1 {
   width: 100%;
 }
 
-/*--------------------------------- form view ----------------------------*/
+/*--------------------------------- login form view ----------------------------*/
 #loginForm {
   display: flex;
   flex-direction: column;
@@ -252,7 +252,7 @@ input {
   border-radius: 10px;
   width: 150px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 15px;
   margin: 10px auto;
 }
 .form button:hover {
@@ -263,8 +263,8 @@ input {
 
 .form p {
   color: #fefefe;
-  font-size: 30px;
-  margin: 20px 0 0 0;
+  font-size: 15px;
+  margin: 20px 0 10px 0;
 }
 
 .form a {
@@ -272,6 +272,10 @@ input {
 }
 .form a:hover {
   color: #63a2da;
+}
+.form i {
+  color: #fefefe;
+  font-size: 15px;
 }
 
 /*--------------------------------- register form view ----------------------------*/
