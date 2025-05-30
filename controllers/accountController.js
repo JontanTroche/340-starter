@@ -33,6 +33,33 @@ async function registerAccount(req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
+
+
+  // server-side validation
+  let errors = [];
+  if (!account_firstname || account_firstname.trim() === "") {
+    errors.push("Please provide a first name.");
+  }
+  if (!account_lastname || account_lastname.trim() === "") {
+    errors.push("Please provide a last name.");
+  }
+  if (!account_email || account_email.trim() === "" || !/^\S+@\S+\.\S+$/.test(account_email)) {
+    errors.push("A valid email is required.");
+  }
+  if (!account_password || account_password.trim() === "" || !/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}$/.test(account_password)) {
+    errors.push("Password does not meet requirements.");
+  }
+
+  if (errors.length > 0) {
+    req.flash("error", errors.join(" "));
+    res.status(400).render("account/register", {
+      title: "Registration",
+      nav,
+      errors: errors,
+    });
+    return;
+  }
+  
   const regResult = await accountModel.registerAccount(
     account_firstname,
     account_lastname,

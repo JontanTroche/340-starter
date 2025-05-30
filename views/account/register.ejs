@@ -10,6 +10,15 @@
     </div>
 <% } %>
 
+<%# Flash error message %>
+<% if (errors && errors.length > 0) { %>
+    <div class="flash-messages">
+        <% errors.forEach(error => { %>
+            <p class="error"><%= error %></p>
+        <% }); %>
+    </div>
+<% } %>
+
 <%# Registration form %>
 <p>All the fields are required.</p>
 <form id="registerForm" action="/account/register" method="post">
