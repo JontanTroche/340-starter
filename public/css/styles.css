@@ -298,8 +298,21 @@ input {
 }
 
 .flash-messages p.notice {
-        color: red;
-        font-weight: bold;
+  color: red;
+  font-weight: bold;
+}
+
+input:valid {
+        border-color: #28a745; 
+    }
+    input:valid::placeholder {
+        color: #28a745; 
+    }
+    input:invalid {
+        border: 3px solid #dc3545;
+    }
+    input:invalid::placeholder {
+        color: red; 
     }
 
 /*----------------------------------- Phone View ---------------------------*/

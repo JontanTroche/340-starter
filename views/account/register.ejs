@@ -11,6 +11,7 @@
 <% } %>
 
 <%# Registration form %>
+<p>All the fields are required.</p>
 <form id="registerForm" action="/account/register" method="post">
     <label for="account_firstname">First Name: </label>
     <input type="text" id="account_firstname" name="account_firstname" placeholder="Enter your first name" required>
@@ -19,12 +20,13 @@
     <input type="text" id="account_lastname" name="account_lastname" placeholder="Enter your last name" required>
 
     <label for="account_email">Email Address: </label>
-    <input type="text" id="account_email" name="account_email" placeholder="Enter your Email: " required>
+    <input type="email" id="account_email" name="account_email" placeholder="Enter your Email: " required>
     
     <label for="account_password">Password: </label>
-    <input type="text" id="account_password" name="account_password" placeholder="Enter your password" required>
+    <input type="password" id="account_password" name="account_password" placeholder="Enter your password" required
+    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+    <div><i>Password mut be: 12 characteres minimun, 1 acpital letter, 1 number, 1 special character.</i></div>
     <button type="button" id="togglePassword">Show Password</button>
-    <small>Password mut be: 12 characteres minimun, 1 acpital letter, 1 number, 1 special character.</small>
     <button type="submit">Register</button>
 </form>
 
