@@ -1,5 +1,9 @@
 <h1>Welcome to CSE Motors!</h1>
-<%- messages() %>
+<% if (messages && Object.keys(messages).length > 0) { %>
+  <div class="flash-message">
+    <%- messages.error || messages.success || 'Mensaje' %>
+  </div>
+<% } %>
     <section class="delorean">
         <div class="delorean_box">
             <h2>DMC Delorean</h2>

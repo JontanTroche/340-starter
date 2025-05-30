@@ -18,7 +18,7 @@ main {
 
 /*-----border-----*/
 body {
-  border: 6px solid #63a2da;
+  border: 6px #63a2da;
   background-color: #fefefe;
   margin: 40px 120px;
   padding: 20px;
@@ -171,7 +171,7 @@ h1 {
   display: flex;
   flex-direction: column;
   height: 350px;
-  border: 1px solid #2e333b;
+  border: 1px #2e333b;
   border-radius: 15px;
   overflow: hidden;
   max-width: 100%;
@@ -233,7 +233,7 @@ h1 {
   margin: 20px auto;
   padding: 40px 60px;
   border-radius: 15px;
-  margin: 3px solid #2e333b;
+  border: 3px solid #2e333b;
 }
 
 label {
@@ -258,7 +258,7 @@ input {
 .form button:hover {
   background-color: #63a2da;
   color: #fefefe;
-  margin: 1px solid #fefefe;
+  border: 1px solid #fefefe;
 }
 
 .form p {
@@ -273,6 +273,30 @@ input {
 .form a:hover {
   color: #63a2da;
 }
+
+/*--------------------------------- register form view ----------------------------*/
+#regsiterForm {
+  background-color: #63a2da;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 10px;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 20px;
+  border: 3px #2e333b;
+}
+
+#regsiterForm button {
+  background-color: #32475c;
+  color: #fefefe;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 150px;
+  margin: 5px auto;
+}
+
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
 

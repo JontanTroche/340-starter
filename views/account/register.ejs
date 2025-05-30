@@ -1,0 +1,38 @@
+<h1><%= title %></h1>
+<%# Flash message %>
+<% if (messages && Object.keys(messages).length > 0) { %>
+    <div class="flash-messages">
+        <% Object.keys(messages).forEach(type => { %>
+            <% messages[type].forEach(msg => { %>
+                <p class="<%= type %>"><%= msg %></p>
+            <% }); %>
+        <% }); %>
+    </div>
+<% } %>
+
+<%# Registration form %>
+<form id="regsiterForm" action="/account/register" method="POST">
+    <label for="account_firstname">First Name: </label>
+    <input type="text" id="account_firstname" name="account_firstname" placeholder="Enter your first name" required>
+
+    <label for="account_lastname">Last Name: </label>
+    <input type="text" id="account_lastname" name="account_lastname" placeholder="Enter your last name" required>
+
+    <input type="text" id="account_email" name="account_email" placeholder="Enter your Email: " required>
+    <label for="account_email">Email Address: </label>
+
+    <input type="text" id="account_password" name="account_password" placeholder="Enter your password" required>
+    <label for="account_password">Password: </label>
+    <button type="button" id="togglePassword">Show Password</button>
+    <small>Password mut be: 12 characteres minimun, 1 acpital letter, 1 number, 1 special character.</small>
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('account_password');
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
+    });
+</script>
