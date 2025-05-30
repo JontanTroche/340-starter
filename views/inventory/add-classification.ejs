@@ -1,0 +1,33 @@
+<h1><%= title %></h1>
+
+<%# Flash message %>
+<% if (messages && Object.keys(messages).length > 0) { %>
+    <div class="flash-messages">
+        <% Object.keys(messages).forEach(type => { %>
+        <% messages[type].forEach(msg => { %>
+        <p class="<%= type %>"><%= msg %></p>
+        <% }); %>
+    <% }); %>
+    </div>
+<% } %>
+
+<%# Flash error message %>
+<% if (errors && Array.isArray(errors) && errors.length > 0) { %>
+<div class="flash-messages">
+    <% errors.forEach(error => { %>
+        <p class="error"><%= error %></p>
+    <% }); %>
+</div>
+<% } %>
+
+<div class="new-classification-form">
+    <h2>Add New Classification</h2>
+    <p>All fields are required</p>
+    <p>Classification Name<br>Name must be Alphabetic characters only.</p>
+    <form id="addClassificationForm" action="/inv/add-classification" method="POST">
+    <input type="text" id="classification_name" name="classification_name" placeholder="Enter Classification Name" 
+        required pattern="[A-Za-z]+" title="Name must contain only alphabetic characters."
+        value="<%= locals.classification_name %>">
+    <button type="submit">Add Classification</button>
+    </form>
+</div>

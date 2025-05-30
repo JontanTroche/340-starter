@@ -14,14 +14,14 @@ const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities");
-const session = require("express-session")
-const pool = require('./database/')
-const bodyParser = require("body-parser")
+const session = require("express-session");
+const pool = require('./database/');
+const bodyParser = require("body-parser");
 
 /* ***********************
  * Middleware
  * ************************/
- app.use(session({
+app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
     pool,
@@ -30,18 +30,26 @@ const bodyParser = require("body-parser")
   resave: true,
   saveUninitialized: true,
   name: 'sessionId',
-}))
+}));
 
 // Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
+app.use(require('connect-flash')());
+app.use(function(req, res, next) {
   res.locals.messages = req.flash();
-  next()
-})
+  next();
+});
 
-//Body-parser 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+// Body-parser 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+// Debug middleware to check req.body and headers
+app.use((req, res, next) => {
+  console.log(`Debug - Method: ${req.method}, URL: ${req.url}`);
+  console.log("Debug - Headers:", req.headers);
+  console.log("Debug - req.body:", req.body);
+  next();
+});
 
 /* ***********************
  * View Engine and Templates
@@ -61,7 +69,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory routes
 app.use("/inv", inventoryRoute);
 
-//Account routes
+// Account routes
 app.use("/account", accountRoute);
 
 // Error 500 route
