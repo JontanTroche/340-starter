@@ -275,7 +275,7 @@ input {
 }
 
 /*--------------------------------- register form view ----------------------------*/
-#regsiterForm {
+#registerForm {
   background-color: #63a2da;
   display: flex;
   flex-direction: column;
@@ -287,7 +287,7 @@ input {
   border: 3px #2e333b;
 }
 
-#regsiterForm button {
+#registerForm button {
   background-color: #32475c;
   color: #fefefe;
   font-size: 15px;
@@ -296,6 +296,11 @@ input {
   width: 150px;
   margin: 5px auto;
 }
+
+.flash-messages p.notice {
+        color: red;
+        font-weight: bold;
+    }
 
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
