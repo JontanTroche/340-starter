@@ -36,6 +36,7 @@ app.use(session({
 app.use(require('connect-flash')());
 app.use(function(req, res, next) {
   res.locals.messages = req.flash();
+  console.log("Flash messages set to:", res.locals.messages); // Depuración
   next();
 });
 
@@ -48,6 +49,20 @@ app.use((req, res, next) => {
   console.log(`Debug - Method: ${req.method}, URL: ${req.url}`);
   console.log("Debug - Headers:", req.headers);
   console.log("Debug - req.body:", req.body);
+  next();
+});
+
+// Middleware to set nav once per request
+app.use(async (req, res, next) => {
+  if (!res.locals.nav) {
+    console.log("Setting nav for request"); // Depuración
+    try {
+      res.locals.nav = await utilities.getNav(req, res, next); // Pasamos req, res, next
+    } catch (error) {
+      console.error("Error setting nav:", error);
+      res.locals.nav = "<ul><li><a href='/'>Home</a></li></ul>"; // Fallback
+    }
+  }
   next();
 });
 
@@ -87,7 +102,7 @@ app.use(async (req, res, next) => {
  * Place after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
-  const nav = await utilities.getNav();
+  const nav = res.locals.nav || await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
   res.render("errors/errors", {
     title: err.title || err.status || 'Server Error',

@@ -18,4 +18,8 @@ router.get("/", utilities.handleErrors(invController.buildManagement));
 router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
 router.post("/add-classification", invValidate.addClassificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification));
 
+// Route to build and process new inventory view
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+router.post("/add-inventory", invValidate.addInventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory));
+
 module.exports = router;

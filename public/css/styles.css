@@ -360,11 +360,64 @@ input:invalid::placeholder {
   margin: 20px auto;
   padding: 15px;
 }
+#addClassificationForm button:hover {
+  background-color: #63a2da;
+}
 
-
+/*--------------------------------- add new vehicle view ----------------------------*/
+#addInventoryForm {
+  background-color: #63a2da;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  gap: 10px;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 20px;
+  border: 3px solid #2e333b;
+}
+#addInventoryForm p {
+  color: #fefefe;
+  font-style: italic;
+}
+#classificationList {
+  padding: 5px;
+  font-size: 15px;
+  width: fit-content;
+}
+#addInventoryForm input {
+  box-sizing: border-box;
+  width: 100%;
+}
+#addInventoryForm textarea {
+  height: 150px;
+}
+#addInventoryForm #inv_price, #addInventoryForm #inv_year, #addInventoryForm #inv_miles {
+  width: fit-content;
+}
+#addInventoryForm button {
+  background-color: #32475c;
+  color: #fefefe;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 200px;
+  margin: 20px auto;
+  padding: 15px;
+}
+#addInventoryForm button:hover {
+  background-color: #63a2da;
+  color: #2e333b;
+}
+.errors li {
+  color: #dc3545;
+}
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
 
+#wrapper {
+  width: 100%;
+}
 body {
   height: 100%;
 }
@@ -435,4 +488,5 @@ body {
   .form p {
     font-size: 20px;
   }
+
 }
