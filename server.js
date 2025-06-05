@@ -33,14 +33,6 @@ app.use(session({
   name: 'sessionId',
 }));
 
-// Express Messages Middleware
-app.use(require('connect-flash')());
-app.use(function(req, res, next) {
-  res.locals.messages = req.flash();
-  console.log("Flash messages set to:", res.locals.messages); // Depuración
-  next();
-});
-
 // Body-parser 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -72,6 +64,14 @@ app.use(cookieParser());
 
 //Middleware jwttoken
 app.use(utilities.checkJWTToken)
+
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function(req, res, next) {
+  res.locals.messages = req.flash();
+  console.log("Flash messages set to:", res.locals.messages); // Depuración
+  next();
+});
 
 /* ***********************
  * View Engine and Templates
