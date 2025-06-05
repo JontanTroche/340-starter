@@ -1,0 +1,28 @@
+<main>
+    <h1><%= title %></h1>
+
+    <%# Flash Message %>
+    <% if (messages && Object.keys(messages).length > 0) { %>
+        <div class="flash-messages">
+            <% Object.keys(messages).forEach(type => { %>
+                <% messages[type].forEach(msg => { %>
+                    <p class="<%= type %>"><%= msg %></p>
+                <% }); %>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <%# Flash Error Message %>
+    <% if (errors && errors.length > 0) { %>
+        <div class="flash-messages">
+            <% errors.forEach(error => { %>
+                <p class="error"><%= error %></p>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <div class="account-management">
+        <h2>Welcome to your Account Management</h2>
+        <p>You're logged in</p>
+    </div>
+</main>
