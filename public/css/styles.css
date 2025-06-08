@@ -460,6 +460,33 @@ input:invalid::placeholder {
   color: #2e333b;
 }
 
+/*----------------------------------- delete form ---------------------------*/
+#deleteForm {
+  background-color: #63a2da;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  gap: 10px;
+  margin: 0 auto;
+  border-radius: 15px;
+  padding: 20px;
+  border: 3px solid #2e333b;
+}
+#deleteForm button {
+  background-color: #32475c;
+  color: #fefefe;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 15px;
+  width: 200px;
+  margin: 20px auto;
+  padding: 15px;
+}
+#deleteForm button:hover {
+  background-color: #63a2da;
+  color: #2e333b;
+}
+
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
 
