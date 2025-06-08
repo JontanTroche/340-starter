@@ -105,11 +105,10 @@ invValidate.addInventoryRules = () => {
 // Middleware to check inventory data
 invValidate.checkInventoryData = async (req, res, next) => {
     const errors = validationResult(req);
-    console.log("Validation errors in checkInventoryData:", errors.array()); // Depuración
+    console.log("Validation errors in checkInventoryData:", errors.array()); 
     if (!errors.isEmpty()) {
-        console.log("Flashing errors:", errors.array().map(err => err.msg)); // Depuración
+        console.log("Flashing errors:", errors.array().map(err => err.msg)); 
         req.flash("notice", errors.array().map(err => err.msg));
-        // Guardamos los valores del formulario en la sesión para repoblarlos después de la redirección
         req.session.formData = {
             classification_id: req.body.classification_id || "",
             inv_make: req.body.inv_make || "",
@@ -123,6 +122,37 @@ invValidate.checkInventoryData = async (req, res, next) => {
             inv_color: req.body.inv_color || "",
         };
         return res.redirect("/inv/add-inventory");
+    }
+    next();
+};
+
+// Middleware to check inventory data for updates, redirecting to edit view on errors
+invValidate.checkUpdateData = async (req, res, next) => {
+    const {
+        inv_id,
+        classification_id,
+        inv_make,
+        inv_model,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_year,
+        inv_miles,
+        inv_color,
+    } = req.body;
+    const errors = validationResult(req);
+    console.log("Validation errors in checkUpdateData:", errors.array());
+    if (!errors.isEmpty()) {
+        console.log("Flashing errors:", errors.array().map(err => err.msg));
+        
+        // Flash each error message individually
+        errors.array().forEach(error => {
+            req.flash("notice", error.msg);
+        });
+        
+        // Redirect to edit page to show flash messages
+        return res.redirect(`/inv/edit/${inv_id}`);
     }
     next();
 };

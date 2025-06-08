@@ -1,0 +1,114 @@
+<h1><%= title %></h1>
+
+<%# Flash message %>
+<% if (locals.messages && Object.keys(locals.messages).length > 0) { %>
+    <div class="flash-messages">
+        <% Object.keys(locals.messages).forEach(type => { %>
+            <% if (locals.messages[type] && locals.messages[type].length > 0) { %>
+                <% locals.messages[type].forEach(msg => { %>
+                    <p class="<%= type %>"><%= msg %></p>
+                <% }); %>
+            <% } %>
+        <% }); %>
+    </div>
+<% } %>
+
+
+<form id="updateForm" action="/inv/update" method="post">
+    <p>All fields are required.</p>
+
+    <label for="classificationList">Classification: </label>
+    <%- classificationSelect %>
+
+    <label for="inv_make">Make: </label>
+    <input 
+        type="text"
+        name="inv_make"
+        id="inv_make"
+        required
+        value="<%= inv_make %>"
+        pattern="[A-Za-z0-9]{3,}"
+        title="Make must be at least 3 characters long and contain only letters and numbers."
+    >
+    <label for="inv_model">Model: </label>
+    <input 
+        type="text"
+        name="inv_model"
+        id="inv_model"
+        required
+        value="<%= inv_model %>"
+        pattern="[A-Za-z0-9]{3,}"
+        title="Model must be at least 3 characters long and contain only letters and numbers."
+    >
+    <label for="inv_description">Description: </label>
+    <textarea name="inv_description" id="inv_description" required><%= inv_description %></textarea>
+
+    <label for="inv_image">Image Path: </label>
+    <input 
+        type="text"
+        name="inv_image"
+        id="inv_image"
+        value="<%= inv_image %>"
+        pattern="/images/vehicles/[A-Za-z0-9-]+\.(png|jpg|jpeg)"
+        title="Image path must be in the format /images/vehicles/filename.png (or .jpg, .jpeg)."
+    >
+    <label for="inv_thumbnail">Thumbnail Path: </label>
+    <input 
+        type="text"
+        name="inv_thumbnail"
+        id="inv_thumbnail"
+        value="<%= inv_thumbnail %>"
+        pattern="/images/vehicles/[A-Za-z0-9-]+\-tn\.(png|jpg|jpeg)"
+        title="Thumbnail path must be in the format /images/vehicles/filename-tn.png (or -tn.jpg, -tn.jpeg)."
+    >
+    <label for="inv_price">Price: </label>
+    <input 
+        type="number" 
+        name="inv_price" 
+        id="inv_price"
+        required
+        value="<%= inv_price %>"
+        min="0"
+        step="0.01"
+        title="Price must be a positive number."
+    >
+    <label for="inv_year">Year:</label>
+    <input 
+        type="number" 
+        name="inv_year" 
+        id="inv_year" 
+        required 
+        value="<%= inv_year %>" 
+        min="1900" 
+        max="2100"
+        title="Year must be between 1900 and 2100."
+    >
+    <label for="inv_miles">Miles:</label>
+    <input 
+        type="number" 
+        name="inv_miles" 
+        id="inv_miles" 
+        required 
+        value="<%= inv_miles %>" 
+        min="0"
+        title="Miles must be a positive number."
+    >
+    <label for="inv_color">Color:</label>
+    <input 
+        type="text" 
+        name="inv_color" 
+        id="inv_color" 
+        required 
+        value="<%= inv_color %>" 
+        pattern="[A-Za-z]+"
+        title="Color must contain only letters."
+    >
+    
+    <button type="submit" disabled>Update Vehicle</button>
+
+    <input type="hidden" name="inv_id"
+    <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+    <% } %>>
+</form>
+
+<script src="/js/inv-update.js"></script>
