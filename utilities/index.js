@@ -126,4 +126,30 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
-module.exports = Util
+ /* ****************************************
+ *  Check Account Type (Employee or Admin)
+ * ************************************ */
+Util.checkAccountType = (req, res, next) => {
+  if (res.locals.loggedin && res.locals.accountData) {
+    const accountType = res.locals.accountData.account_type;
+    if (accountType === "Employee" || accountType === "Admin") {
+      next();
+    } else {
+      req.flash("notice", "You do not have permission to access this resource. Please contact an administrator.");
+      return res.redirect("/account/login");
+    }
+  } else {
+    req.flash("notice", "Please log in with appropriate credentials to access this resource.");
+    return res.redirect("/account/login");
+  }
+};
+
+module.exports = { 
+  getNav: Util.getNav,
+  buildClassificationGrid: Util.buildClassificationGrid,
+  handleErrors: Util.handleErrors,
+  buildClassificationList: Util.buildClassificationList,
+  checkJWTToken: Util.checkJWTToken,
+  checkLogin: Util.checkLogin,
+  checkAccountType: Util.checkAccountType
+}

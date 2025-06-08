@@ -1,0 +1,112 @@
+<main>
+    <h1><%= title %></h1>
+
+    <%# Flash Message %>
+    <% if (messages && Object.keys(messages).length > 0) { %>
+        <div class="flash-messages">
+            <% Object.keys(messages).forEach(type => { %>
+                <% messages[type].forEach(msg => { %>
+                    <p class="<%= type %>"><%= msg %></p>
+                <% }); %>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <%# Flash Error Message %>
+    <% if (errors && errors.length > 0) { %>
+        <div class="flash-messages">
+            <% errors.forEach(error => { %>
+                <p class="error"><%= error %></p>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <!-- Account Update Form -->
+    <section class="account-update-section">
+        <form id="updateForm" action="/account/update-info" method="post" novalidate>
+            <legend>Account Update</legend>
+                <div class="form-group">
+                    <label for="account_firstname">First Name: <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="account_firstname" 
+                        name="account_firstname" 
+                        value="<%= locals.account_firstname || '' %>" 
+                        required
+                        pattern="[A-Za-z\s]{2,}" 
+                        title="First name must be at least 2 characters and contain only letters"
+                    >
+                </div>
+                    
+                <div class="form-group">
+                    <label for="account_lastname">Last Name: <span class="required">*</span></label>
+                    <input 
+                        type="text" 
+                        id="account_lastname" 
+                        name="account_lastname" 
+                        value="<%= locals.account_lastname || '' %>" 
+                        required
+                        pattern="[A-Za-z\s]{2,}" 
+                        title="Last name must be at least 2 characters and contain only letters"
+                    >
+                </div>
+                    
+                <div class="form-group">
+                    <label for="account_email">Email Address: <span class="required">*</span></label>
+                    <input 
+                        type="email" 
+                        id="account_email" 
+                        name="account_email" 
+                        value="<%= locals.account_email || '' %>" 
+                        required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Please enter a valid email address"
+                    >
+                </div>
+                    
+                <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+                    
+                <div class="form-group">
+                    <button type="submit" value="Update Account" class="submit-btn" >Update Account</button>
+                </div>
+        </form>
+    </section>
+
+        <!-- Change Password Form -->
+        <section class="password-change-section">
+            <form id="passwordChangeForm" action="/account/update-password" method="post" novalidate>
+                    <legend>Change Password</legend>
+                    
+                    <div class="password-info">
+                        <p><strong>Password Requirements:</strong></p>
+                        <ul>
+                            <li>At least 12 characters long</li>
+                            <li>Must contain at least one uppercase letter</li>
+                            <li>Must contain at least one number</li>
+                            <li>Must contain at least one special character (!@#$%^&*)</li>
+                        </ul>
+                        <p><em>Note: Entering a new password will replace your current password.</em></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="account_password">New Password: <span class="required">*</span></label>
+                        <input 
+                            type="password" 
+                            id="account_password" 
+                            name="account_password" 
+                            required
+                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{12,}$"
+                            title="Password must be at least 12 characters with uppercase, number, and special character"
+                        >
+                    </div>
+                    
+                    <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+                    
+                    <div class="form-group">
+                        <button type="submit" value="Change Password" class="submit-btn">Change Password</button>
+                    </div>
+            </form>
+        </section>
+    
+    <p><a href="/account/" title="Return to account management">Return to Account Management</a></p>
+</main>

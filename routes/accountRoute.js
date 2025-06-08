@@ -18,6 +18,20 @@ router.post(
   utilities.handleErrors(accountController.loginAccount)
 );
 
+router.get("/logout", utilities.handleErrors(accountController.logoutAccount));
 
+//Update account
+router.get("/update/:account_id", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountUpdate));
+
+// Routes for processing account updates
+router.post("/update-info", 
+  utilities.checkLogin, 
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateData,
+  utilities.handleErrors(accountController.updateAccountInfo));
+router.post("/update-password", 
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateData,
+  utilities.checkLogin, utilities.handleErrors(accountController.updatePassword));
 
 module.exports = router;
