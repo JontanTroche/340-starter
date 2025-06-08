@@ -412,6 +412,27 @@ input:invalid::placeholder {
 .errors li {
   color: #dc3545;
 }
+/*----------------------------------- Inventory Display table ---------------------------*/
+#inventoryDisplay {
+  margin: 15px;
+  width: 100%;
+}
+#inventoryDisplay td {
+  height: 50px;
+}
+#inventoryDisplay a {
+  text-decoration: none;
+  padding: 7px;
+  font-size: 20px;
+  color: #fefefe;
+  font-weight: bold;
+  background-color: #32475c;
+  border-radius: 5px;
+}
+#inventoryDisplay a:hover {
+  background-color: #63a2da;
+}
+
 /*----------------------------------- Phone View ---------------------------*/
 @media (max-width: 870px) {
 
@@ -469,8 +490,8 @@ body {
   }
 
   /*-----footer-----*/
-  footer p {
-    margin-left: 10px;
+  footer {
+    padding: 10px;
   }
 
   /*-------------------------------- Inv Display View ------------------------*/
@@ -487,6 +508,11 @@ body {
   /*--------------------------------- Vehicle detail ----------------------------*/
   .form p {
     font-size: 20px;
+  }
+
+  /*--------------------------------- management view ----------------------------*/
+  .management {
+    margin: 0;
   }
 
 }

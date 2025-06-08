@@ -22,4 +22,7 @@ router.post("/add-classification", invValidate.addClassificationRules(), invVali
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
 router.post("/add-inventory", invValidate.addInventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory));
 
+// Route to get inventory items by classification_id (AJAX)
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+
 module.exports = router;
