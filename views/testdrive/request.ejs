@@ -1,0 +1,63 @@
+<h1>Schedule a Test Drive</h1>
+
+<% if (messages && Object.keys(messages).length > 0) { %>
+  <div class="flash-messages">
+    <% Object.keys(messages).forEach(type => { %>
+      <% messages[type].forEach(msg => { %>
+        <p class="<%= type %>"><%= msg %></p>
+      <% }); %>
+    <% }); %>
+  </div>
+<% } %>
+
+<form id="testDriveForm" action="/testdrive/request" method="post">
+  <p>All fields are required.</p>
+
+  <label for="inv_id">Vehicle: </label>
+  <%- inventoryList %>
+
+  <label for="name">Name: </label>
+  <input 
+    type="text"
+    name="name"
+    id="name"
+    required
+    value="<%= name %>"
+    pattern="[A-Za-z\s]{2,}"
+    title="Name must be at least 2 characters long and contain only letters and spaces."
+  >
+
+  <label for="phone">Phone: </label>
+  <input 
+    type="tel"
+    name="phone"
+    id="phone"
+    required
+    value="<%= phone %>"
+    pattern="\+?[\d\s-]{10,15}"
+    title="Phone must be a valid number (10-15 digits)."
+  >
+
+  <label for="email">Email: </label>
+  <input 
+    type="email"
+    name="email"
+    id="email"
+    required
+    value="<%= email %>"
+    title="Must provide a valid email."
+  >
+
+  <label for="test_date">Test Date: </label>
+  <input 
+    type="date"
+    name="test_date"
+    id="test_date"
+    required
+    value="<%= test_date %>"
+    min="<%= new Date().toISOString().split('T')[0] %>"
+    title="Must provide a valid date."
+  >
+
+  <button type="submit">Schedule Test Drive</button>
+</form>

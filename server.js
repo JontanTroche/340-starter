@@ -20,8 +20,24 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 /* ***********************
- * Middleware
+ * View Engine and Templates (ANTES de middlewares)
+ *************************/
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "./layouts/layout"); // not at views root
+
+/* ***********************
+ * Middleware - ORDEN CORRECTO
  * ************************/
+
+// 1. PRIMERO: Body parsers (CRÍTICO - debe ir antes que todo)
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// 2. Cookie parser
+app.use(cookieParser());
+
+// 3. Session middleware
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -33,55 +49,54 @@ app.use(session({
   name: 'sessionId',
 }));
 
-// Body-parser 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+// 4. JWT Token middleware
+app.use(utilities.checkJWTToken);
 
-// Debug middleware to check req.body and headers
+// 5. Debug middleware general (DESPUÉS de parsers)
 app.use((req, res, next) => {
   console.log(`Debug - Method: ${req.method}, URL: ${req.url}`);
-  console.log("Debug - Headers:", req.headers);
-  console.log("Debug - req.body:", req.body);
+  if (req.method === 'POST') {
+    console.log("Debug - Content-Type:", req.get('Content-Type'));
+    console.log("Debug - req.body:", req.body);
+    console.log("Debug - Body keys:", Object.keys(req.body || {}));
+  }
   next();
 });
 
-// Middleware to set nav once per request
+// 6. JWT Debug middleware
+app.use((req, res, next) => {
+  console.log("=== JWT DEBUG ===");
+  console.log("req.cookies.jwt exists:", !!req.cookies.jwt);
+  console.log("res.locals.loggedin:", res.locals.loggedin);
+  console.log("res.locals.accountData:", res.locals.accountData);
+  console.log("================");
+  next();
+});
+
+// 7. Nav middleware
 app.use(async (req, res, next) => {
   if (!res.locals.nav) {
-    console.log("Setting nav for request"); // Depuración
+    console.log("Setting nav for request");
     try {
-      res.locals.nav = await utilities.getNav(req, res, next); // Pasamos req, res, next
+      res.locals.nav = await utilities.getNav(req, res, next);
     } catch (error) {
       console.error("Error setting nav:", error);
-      res.locals.nav = "<ul><li><a href='/'>Home</a></li></ul>"; // Fallback
+      res.locals.nav = "<ul><li><a href='/'>Home</a></li></ul>";
     }
   }
   next();
 });
 
-//Middleware cookie parser
-app.use(cookieParser());
-
-//Middleware jwttoken
-app.use(utilities.checkJWTToken)
-
-// Express Messages Middleware
+// 8. Flash messages middleware
 app.use(require('connect-flash')());
 app.use(function(req, res, next) {
   res.locals.messages = req.flash();
-  console.log("Flash messages set to:", res.locals.messages); // Depuración
+  console.log("Flash messages set to:", res.locals.messages);
   next();
 });
 
 /* ***********************
- * View Engine and Templates
- *************************/
-app.set("view engine", "ejs");
-app.use(expressLayouts);
-app.set("layout", "./layouts/layout"); // not at views root
-
-/* ***********************
- * Routes
+ * Routes - AL FINAL
  *************************/
 app.use(static);
 
@@ -93,6 +108,27 @@ app.use("/inv", inventoryRoute);
 
 // Account routes
 app.use("/account", accountRoute);
+
+// Test drive route - UN SOLO DEBUG MIDDLEWARE
+const testdriveRoute = require("./routes/testdriveRoute");
+app.use('/testdrive', (req, res, next) => {
+  if (req.method === 'POST') {
+    console.log('\n=== TESTDRIVE POST DEBUG ===');
+    console.log('URL:', req.url);
+    console.log('Content-Type:', req.get('Content-Type'));
+    console.log('Body:', req.body);
+    console.log('Body keys:', Object.keys(req.body || {}));
+    console.log('Body values:', Object.values(req.body || {}));
+    console.log('Content-Length:', req.get('Content-Length'));
+    console.log('Account ID:', res.locals.accountData?.account_id);
+    console.log('============================\n');
+  }
+  next();
+});
+app.use("/testdrive", testdriveRoute);
+
+// Test route
+app.get("/test-route", (req, res) => res.send("Test route is working!"));
 
 // Error 500 route
 app.get("/error/500", async (req, res, next) => {

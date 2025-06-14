@@ -1,7 +1,13 @@
 <h1>Welcome to CSE Motors!</h1>
 <% if (messages && Object.keys(messages).length > 0) { %>
   <div class="flash-message">
-    <%- messages.error || messages.success || 'Mensaje' %>
+    <% if (messages.error) { %>
+      <%- messages.error %>
+    <% } else if (messages.success) { %>
+      <%- messages.success %>
+    <% } else if (messages.notice) { %>
+      <%- messages.notice %>
+    <% } %>
   </div>
 <% } %>
     <section class="delorean">

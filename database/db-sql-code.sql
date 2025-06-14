@@ -251,3 +251,18 @@ UPDATE public.inventory
 SET 
     inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
     inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
+
+
+--add "test_drive" table to the database
+CREATE TABLE public.test_drive (
+    test_drive_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    inv_id INTEGER NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    test_date DATE NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pendiente',
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES public.account(account_id) ON DELETE RESTRICT,
+    CONSTRAINT fk_inv_id FOREIGN KEY (inv_id) REFERENCES public.inventory(inv_id) ON DELETE RESTRICT
+);

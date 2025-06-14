@@ -10,6 +10,7 @@ Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
+  list += '<li><a href="/testdrive/request" title="Schedule a test drive">Test Drive</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
     list +=
@@ -144,6 +145,21 @@ Util.checkAccountType = (req, res, next) => {
   }
 };
 
+/* **************************************
+ * Build the inventory dropdown list
+ * ************************************ */
+Util.buildInventoryList = async function () {
+  let data = await invModel.getInventory();
+  let inventoryList = '<select name="inv_id" id="invId" required>';
+  inventoryList += "<option value=''>Choose a Vehicle</option>";
+  data.forEach((row) => {
+    inventoryList += `<option value="${row.inv_id}">${row.inv_make} ${row.inv_model} (${row.inv_year})</option>`;
+  });
+  inventoryList += "</select>";
+  return inventoryList;
+};
+
+
 module.exports = { 
   getNav: Util.getNav,
   buildClassificationGrid: Util.buildClassificationGrid,
@@ -151,5 +167,6 @@ module.exports = {
   buildClassificationList: Util.buildClassificationList,
   checkJWTToken: Util.checkJWTToken,
   checkLogin: Util.checkLogin,
-  checkAccountType: Util.checkAccountType
+  checkAccountType: Util.checkAccountType,
+  buildInventoryList: Util.buildInventoryList 
 }
